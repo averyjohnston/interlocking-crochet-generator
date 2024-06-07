@@ -13,7 +13,7 @@ export default function AboutModal(props) {
 			</p>
 			<p><strong>Please don't sell patterns created in this tool.</strong> You can sell the finished product though. Credit is highly appreciated!</p>
 			<p>Find a bug? Email me at <a href="mailto:crochetgeneratorcontact@gmail.com">crochetgeneratorcontact@gmail.com</a></p>
-			<p className="Modal__footer">Made in ReactJS. <a target="_blank" rel="noopener noreferrer" href="https://github.com/Mooglegirl/interlocking-crochet-generator">Source code</a></p>
+			<p className="Modal__footer">Made in ReactJS. <a target="_blank" rel="noopener noreferrer" href="https://github.com/amandaejohnston/interlocking-crochet-generator">Source code</a></p>
 		</Modal>
 	);
 }
