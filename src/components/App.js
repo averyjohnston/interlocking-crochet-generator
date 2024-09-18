@@ -13,15 +13,15 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { HotKeys } from "react-hotkeys";
 
 // utility functions
-import { 
-  isSquareLine, 
-  isSquareEdge, 
+import {
+  isSquareLine,
+  isSquareEdge,
   isSquareValid,
   isSquareEmptyAndValid
 } from "../utils/square-utils";
 import { initializeDots, fillRecursively } from "../utils/grid-utils";
-import { 
-  deepClone, 
+import {
+  deepClone,
   getIndexOfElementInParent,
   updateSettingsStyleVars,
   updateToolStyleVars,
@@ -34,7 +34,7 @@ import {
   showLoadingError,
   convertBase64StringToGridData
 } from "../utils/save-load-utils";
-import { 
+import {
   DEFAULT_TOOL,
   INIT_SETTINGS,
   ACTIVE_TOOL_DATA,
@@ -285,7 +285,7 @@ export default class App extends React.Component {
       const encoderV1 = fromJson(1, SETTINGS_COMPRESSION_SPEC);
       const encoded = encodeURIComponent(encode(encoderV1, generateSaveObject(this.state.grid, this.state.settings)));
       this.setState({
-        shareLink: `http://interlocking-crochet-generator.herokuapp.com/?share=${encoded}`,
+        shareLink: `http://interlocking-crochet-generator.onrender.com/?share=${encoded}`,
         activeModal: "ShareModal"
       });
     } else if(toolName === "TurnOver") {
@@ -359,11 +359,11 @@ export default class App extends React.Component {
           cols: state.settings.cols
         });
         if(history.length > 20) history.shift();
-        return { 
+        return {
           history: history,
           currentHistoryIndex: history.length-1
         };
-      }   
+      }
     });
   }
 
@@ -455,7 +455,7 @@ export default class App extends React.Component {
   // basically get the touched square indirectly instead of from the event's target
   handleTouchMove(e) {
     if(this.state.activeTool === "Line") return; // Line's touchmove stuff is handled in DrawingGrid
-    
+
     // find the square the user is currently touching
     // the DOM element, not the component
     const touchLoc = e.changedTouches[0];
@@ -479,7 +479,7 @@ export default class App extends React.Component {
         "rows": this.updateRowsCount,
         "cols": this.updateColsCount
       }[settingName];
-      
+
       if(handlerFunc) {
         handlerFunc(settingValue);
       }
@@ -499,7 +499,7 @@ export default class App extends React.Component {
   updateRowsCount(newCount) {
     this.setState((state, props) => {
       let newGrid = deepClone(state.grid);
-      
+
       let delta = newCount - newGrid.length;
       if(delta > 0) {
         while(delta-- > 0) { newGrid.push(Array(newGrid[0].length).fill(false)); }
@@ -588,7 +588,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <div 
+      <div
         className={`App  ${this.state.isLeftCollapsed ? "App--left-collapsed" : ""}  ${this.state.isRightCollapsed ? "App--right-collapsed" : ""}`}
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleMouseDown}
@@ -599,8 +599,8 @@ export default class App extends React.Component {
         onTouchMove={this.handleTouchMove}
       >
         <HotKeys keyMap={hotkeysMap} handlers={hotkeysHandlers}>
-          <Toolbar 
-            activeTool={this.state.activeTool} 
+          <Toolbar
+            activeTool={this.state.activeTool}
             handleActiveClick={this.handleActiveToolbarClick}
             handlePassiveClick={this.handlePassiveToolbarClick}
             canUndo={this.state.currentHistoryIndex > 0}
@@ -608,7 +608,7 @@ export default class App extends React.Component {
           />
           <div className="App__main">
             <div className="App__col">
-              <DrawingGrid 
+              <DrawingGrid
                 grid={this.state.grid}
                 showDetailedView={this.state.settings.showDetailedView}
                 showGrid={this.state.settings.showGrid}
@@ -634,9 +634,9 @@ export default class App extends React.Component {
                 </TabList>
                 <TabPanel forceRender={true}>
                   {/* Forcing this to render enables us to force-show it when printing */}
-                  <PatternDisplay 
-                    grid={this.state.grid} 
-                    leftHandedMode={this.state.settings.leftHandedMode} 
+                  <PatternDisplay
+                    grid={this.state.grid}
+                    leftHandedMode={this.state.settings.leftHandedMode}
                     showDetailedPattern={this.state.settings.showDetailedPattern}
                   />
                   </TabPanel>
